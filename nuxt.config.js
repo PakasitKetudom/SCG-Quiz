@@ -34,9 +34,18 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
+    // Doc: https://http.nuxtjs.org
+    '@nuxt/http'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+
+  // serverMiddleware: ['~/api/index'],
+  serverMiddleware: {
+    '/api': '~/api'
+  },
+
+  
 }

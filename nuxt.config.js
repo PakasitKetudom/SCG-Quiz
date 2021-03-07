@@ -35,7 +35,7 @@ export default {
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
     // Doc: https://http.nuxtjs.org
-    '@nuxt/http'
+    '@nuxt/http',
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

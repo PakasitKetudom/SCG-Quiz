@@ -12,10 +12,12 @@
           <table width="100%">
             <tr v-for="(vm_item, id) in vm_items.product" :key="id">
               <td>
-                <span>{{ vm_item.name }}</span>
+                <span v-if="vm_item.quantity >= 10">{{ vm_item.name }}</span>
+                <span v-else style="color:red">{{ vm_item.name }}</span>
               </td>
               <td>
-                <span>{{ vm_item.quantity }} pc.</span>
+                <span v-if="vm_item.quantity >= 10">{{ vm_item.quantity }} pc.</span>
+                <span v-else style="color:red">{{ vm_item.quantity }} pc.</span>
               </td>
             </tr>
           </table>

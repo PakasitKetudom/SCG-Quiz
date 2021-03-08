@@ -41,9 +41,16 @@
 // }
 
 const express = require('express')
+var bodyParser = require('body-parser')
+
 
 // Create express instance
 const app = express()
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 // Require API routes
 const test = require('./routes/test')

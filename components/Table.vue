@@ -1,18 +1,6 @@
 <template>
   <div>
-    <!-- <b-table striped hover :items="items"></b-table> -->
-    <!-- {{ item }} -->
-    <!-- <b-table hover head-variant="dark"
-        id="pages-table"
-        :items="items"
-        :fields="fields">
-        <template slot="actions" slot-scope="data">
-            <button class="btn btn-dark" @click="update(data)" :ref="'btn' + data.index">Update</button>
-        </template>
-    </b-table> -->
-
-    <b-table striped hover :fields="fields" :items="items" responsive="sm">
-      <!-- A virtual column -->
+    <b-table sticky-header hover :fields="fields" :items="items" responsive="sm" class="table">
       <template #cell(index)="data">
         {{ data.index + 1 }}
       </template>
@@ -23,22 +11,6 @@
       </template>
 
       <template #cell(action)="row">
-        <!-- <b-button
-          v-if="row.item.quantity > 0"
-          size="sm"
-          @click="click(row.item)"
-          class="mr-1 button"
-        >
-          Buy
-        </b-button> -->
-        <!-- <b-button
-          v-if="row.item.quantity > 0"
-          size="sm"
-          v-b-modal.modal-insert-coin
-          class="mr-1 button"
-        >
-          Buy
-        </b-button> -->
         <b-button
           v-if="row.item.quantity > 0"
           size="sm"
@@ -59,7 +31,8 @@
       ok-only
       :ok-disabled="false"
       centered
-      @hide="resetInfoModal"
+      @show="resetModal"
+      @hide="resetModal"
       @ok="handleOk"
     >
       <form ref="form" @submit.stop.prevent="handleSubmit">
@@ -74,47 +47,11 @@
             <td class="tdcol1">10 Coin Baht</td><td class="tdcol2"><b-form-input class="input-num" type="number" min="0.00" max="100.00" @keyup="inputtenbaht($event.target.value)"></b-form-input></td><td class="tdcol3">Unit</td>
           </tr>
           <tr>
-            <td class="tdcol1">Total</td><td class="tdcol2">{{ onebaht + fivebaht + tenbaht }}</td><td class="tdcol3">Baht</td>
+            <td class="tdcol1">Total</td><td class="tdcol2">{{ onebaht + (fivebaht * 5) + (tenbaht * 10) }}</td><td class="tdcol3">Baht</td>
           </tr>
         </table>
       </form>
     </b-modal>
-
-    <!-- <b-modal
-      id="modal-insert-coin"
-      ref="modal"
-      title="Insert Coin"
-      centered
-      @show="resetModal"
-      @hidden="resetModal"
-      @ok="handleOk"
-    > -->
-    <!-- <b-modal
-      id="modal-insert-coin"
-      ref="modal"
-      title="Insert Coin"
-      centered
-      @show="resetModal"
-      @hidden="resetModal"
-      @ok="handleOk"
-    >
-      <form ref="form" @submit.stop.prevent="handleSubmit">
-        <table width="100%" class="text-center">
-          <tr>
-            <td class="tdcol1">1 Coin Baht</td><td class="tdcol2"><b-form-input class="input-num" type="number" min="0.00" max="100.00" @keyup="inputonebaht($event.target.value)"></b-form-input></td><td class="tdcol3">Unit</td>
-          </tr>
-           <tr>
-            <td class="tdcol1">5 Coin Baht</td><td class="tdcol2"><b-form-input class="input-num" type="number" min="0.00" max="100.00" @keyup="inputfivebaht($event.target.value)"></b-form-input></td><td class="tdcol3">Unit</td>
-          </tr>
-           <tr>
-            <td class="tdcol1">10 Coin Baht</td><td class="tdcol2"><b-form-input class="input-num" type="number" min="0.00" max="100.00" @keyup="inputtenbaht($event.target.value)"></b-form-input></td><td class="tdcol3">Unit</td>
-          </tr>
-          <tr>
-            <td class="tdcol1">Total</td><td class="tdcol2">{{ onebaht + fivebaht + tenbaht }}</td><td class="tdcol3">Baht</td>
-          </tr>
-        </table>
-      </form>
-    </b-modal> -->
   </div>
 </template>
 
@@ -128,7 +65,8 @@ export default {
         content: "",
       },
       proid:"",
-      quantity:""
+      quantity:"",
+      price:""
     };
   },
   props: {
@@ -154,9 +92,6 @@ export default {
     },
   },
   methods: {
-    click(value) {
-      this.$emit("click", value.id, value.quantity);
-    },
     inputonebaht(value) {
       this.$emit("inputonebaht", value);
     },
@@ -170,19 +105,17 @@ export default {
       this.$emit("resetvalue");
     },
     handleOk() {
-      this.$emit("handleOk",this.proid,this.quantity);
+      this.$emit("handleOk",this.proid,this.quantity,this.price);
     },
     info(item, index, button) {
       // this.$emit("info",item, index, button);
       // this.infoModal.title = `Row index: ${index}`;
       // this.infoModal.content = "hello",
+      this.infoModal.title = "Insert Coin"
       this.proid = item.id
       this.quantity = item.quantity
+      this.price = item.price
       this.$root.$emit("bv::show::modal", this.infoModal.id, button);
-    },
-    resetInfoModal() {
-      this.infoModal.title = "";
-      this.infoModal.content = "";
     },
   },
 };
@@ -192,6 +125,9 @@ export default {
 .button {
   width: 60%;
   margin: auto;
+}
+.table{
+  max-height:100%;
 }
 .tdcol1 {
   width: 40%;

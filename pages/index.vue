@@ -1,31 +1,16 @@
 <template>
   <div class="container">
     <b-container>
-      <b-row no-gutters class="mb-3">
+      <b-row no-gutters class="mb-1">
+        <h1>Money income : {{ money_income }} Baht</h1>
+      </b-row>
+      <b-row no-gutters class="mb-1">
         <h1>Location</h1>
       </b-row>
-      <!-- <b-row no-gutters class="row-card"> -->
-      <!-- <div>
-        <b-card-group deck>
-          <Card
-            v-for="(vending_machine, id) in vending_machines"
-            :key="id"
-            :vm_items="vending_machines[id]"
-            class="mb-2"
-          />
-        </b-card-group>
-      </div> -->
-      <!-- </b-row> -->
-      <b-row no-gutters class="my-5">
+      <b-row no-gutters class="my-4">
         <input style="width:70%;margin:auto;" type="text" v-model="search" placeholder="Search Location.."/>
       </b-row>
       <b-row no-gutters>
-        <!-- <Card
-          v-for="(vending_machine, id) in vending_machines"
-          :key="id"
-          :vm_items="vending_machines[id]"
-          class="mb-2"
-        /> -->
         <Card
           v-for="(vending_machine, id) in filteredList"
           :key="id"
@@ -45,8 +30,13 @@ export default {
   },
   async asyncData({ $http }) {
     const vending_machines = await $http.$get("/api/vending_machine/");
+    var money_income = 0
+    for (var i in vending_machines){
+      money_income += parseInt(vending_machines[i].oneCoin) + (parseInt(vending_machines[i].fiveCoin) * 5) + (parseInt(vending_machines[i].tenCoin) * 10)
+    }
     return {
       vending_machines,
+      money_income
     };
   },
   data() {
@@ -95,16 +85,6 @@ export default {
 .links {
   padding-top: 15px;
 }
-
-/* .card-deck{
-  margin: auto;
-  justify-content: center;
-} */
-
-/* .row-card{
-  margin: auto;
-  justify-content: center;
-} */
 
 @media only screen and (max-width: 600px) {
   .row {

@@ -38,13 +38,13 @@
       <form ref="form" @submit.stop.prevent="handleSubmit">
         <table width="100%" class="text-center">
           <tr>
-            <td class="tdcol1">1 Coin Baht</td><td class="tdcol2"><b-form-input class="input-num" type="number" min="0.00" max="100.00" @keyup="inputonebaht($event.target.value)"></b-form-input></td><td class="tdcol3">Unit</td>
+            <td class="tdcol1">1 Baht Coin</td><td class="tdcol2"><b-form-input class="input-num" type="number" min="0.00" max="100.00" @keyup="inputonebaht($event.target.value)"></b-form-input></td><td class="tdcol3">Unit</td>
           </tr>
            <tr>
-            <td class="tdcol1">5 Coin Baht</td><td class="tdcol2"><b-form-input class="input-num" type="number" min="0.00" max="100.00" @keyup="inputfivebaht($event.target.value)"></b-form-input></td><td class="tdcol3">Unit</td>
+            <td class="tdcol1">5 Baht Coin</td><td class="tdcol2"><b-form-input class="input-num" type="number" min="0.00" max="100.00" @keyup="inputfivebaht($event.target.value)"></b-form-input></td><td class="tdcol3">Unit</td>
           </tr>
            <tr>
-            <td class="tdcol1">10 Coin Baht</td><td class="tdcol2"><b-form-input class="input-num" type="number" min="0.00" max="100.00" @keyup="inputtenbaht($event.target.value)"></b-form-input></td><td class="tdcol3">Unit</td>
+            <td class="tdcol1">10 Baht Coin</td><td class="tdcol2"><b-form-input class="input-num" type="number" min="0.00" max="100.00" @keyup="inputtenbaht($event.target.value)"></b-form-input></td><td class="tdcol3">Unit</td>
           </tr>
           <tr>
             <td class="tdcol1">Total</td><td class="tdcol2">{{ onebaht + (fivebaht * 5) + (tenbaht * 10) }}</td><td class="tdcol3">Baht</td>
@@ -109,9 +109,9 @@ export default {
     },
     info(item, index, button) {
       // this.$emit("info",item, index, button);
-      // this.infoModal.title = `Row index: ${index}`;
+      this.infoModal.title = `Insert Coin: ${item.price} Baht`;
       // this.infoModal.content = "hello",
-      this.infoModal.title = "Insert Coin"
+      // this.infoModal.title = "Insert Coin"
       this.proid = item.id
       this.quantity = item.quantity
       this.price = item.price

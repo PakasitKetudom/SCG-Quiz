@@ -14,6 +14,22 @@
         Baht
       </h1>
     </div>
+    <div class="my-3">
+      <table border="1" width="40%" class="text-center" style="margin:auto;" cellpadding="8">
+        <tr>
+          <th colspan="2">Coin remain</th>
+        </tr>
+        <tr>
+          <td class="table_td">1 Baht coin</td><td>{{ selectID_vending_machine.oneCoin }}</td>
+        </tr>
+        <tr>
+          <td class="table_td">5 Baht coin</td><td>{{ selectID_vending_machine.fiveCoin }}</td>
+        </tr>
+        <tr>
+          <td class="table_td">10 Baht coin</td><td>{{ selectID_vending_machine.tenCoin }}</td>
+        </tr>
+      </table>
+    </div>
     <div>
       <Table
         :items="selectID_vending_machine.product"
@@ -190,5 +206,8 @@ export default {
 <style>
 .container{
   height: 100%;
+}
+.table_td{
+  width: 50%;
 }
 </style>
